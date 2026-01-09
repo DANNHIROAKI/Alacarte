@@ -7,13 +7,13 @@
 In the performance evaluation of multidimensional spatial database systems, the spatial join is one of the most computationally challenging operators. Let $R$ and $S$ be two sets containing $d$-dimensional axis-aligned hyper-rectangles (hereinafter referred to as "boxes"). Each object $b$ is defined as the Cartesian product of $d$ half-open intervals:
 
 $$
-b \;=\; \prod_{k=1}^{d}\,[\,\ell_k,\ u_k\,) \quad \subseteq \mathbb{R}^d
+b = \prod_{k=1}^{d}\,[\,\ell_k,\ u_k\,) \quad \subseteq \mathbb{R}^d
 $$
 
 The result set $J$ of a spatial join under the "intersects" predicate is defined as:
 
 $$
-J(R, S) \;=\; \{(r, s) \in R \times S \mid r \cap s \neq \varnothing\}
+J(R, S) = \{(r, s) \in R \times S \mid r \cap s \neq \varnothing\}
 $$
 
 To ensure the credibility and fairness of benchmark results, the synthetic data generation mechanism must possess **statistical controllability**. That is, beyond the appearance of the generated geometric objects, the computational load of the join operation must be strictly controlled.
@@ -23,7 +23,7 @@ To ensure the credibility and fairness of benchmark results, the synthetic data 
 The cardinality $|J|$ of the join result is typically non-linear and highly dependent on input scale and data distribution. To establish a unified load metric across experiments of different scales, the normalized output density $\alpha_{\mathrm{out}}$ is defined as follows:
 
 $$
-\alpha_{\mathrm{out}} \;=\; \frac{|J(R, S)|}{|R| + |S|}
+\alpha_{\mathrm{out}} = \frac{|J(R, S)|}{|R| + |S|}
 $$
 
 This metric quantifies the average number of result edges contributed by each node (input object) in the bipartite join graph.
@@ -45,7 +45,7 @@ This process must simultaneously output complete metadata, including random seed
 Define the spatial universe $\mathcal{U}$ as a $d$-dimensional hyper-rectangle:
 
 $$
-\mathcal{U} \;=\; \prod_{k=1}^{d}\,[\,u_k^{\min},\ u_k^{\max}\,)
+\mathcal{U} = \prod_{k=1}^{d}\,[\,u_k^{\min},\ u_k^{\max}\,)
 $$
 
 Let $W_k = u_k^{\max} - u_k^{\min}$ be the span of the $k$-th dimension. The total volume of the universe is $V_{\mathcal{U}} = \prod_{k=1}^d W_k$.
@@ -63,7 +63,7 @@ To control the average scale of geometric objects, we introduce a **coverage** p
 Based on a given $C$ and set cardinality $n_T$, the **expected volume** $\bar{v}_T$ of objects in that set is derived as:
 
 $$
-\bar{v}_T \;=\; \frac{C \cdot V_{\mathcal{U}}}{n_T}
+\bar{v}_T = \frac{C \cdot V_{\mathcal{U}}}{n_T}
 $$
 
 This formula ensures **scale invariance** of the generation model: as the sample size $n_T$ increases, the average volume of individual objects automatically scales by a factor of $1/n_T$, thereby maintaining relatively stable spatial filling characteristics for a fixed $C$.
@@ -87,13 +87,13 @@ To decouple volume from aspect ratio, we introduce a $d$-dimensional shape facto
 The shape factors follow a log-normal distribution. First, latent variables $z_k \sim \mathcal{N}(0, \sigma_{\mathrm{shape}}^2)$ are sampled, followed by geometric mean normalization:
 
 $$
-g_k \;=\; \frac{e^{z_k}}{\left(\prod_{j=1}^d e^{z_j}\right)^{1/d}}
+g_k = \frac{e^{z_k}}{\left(\prod_{j=1}^d e^{z_j}\right)^{1/d}}
 $$
 
 Finally, the side length $\lambda_k$ for the $k$-th dimension of the object is derived:
 
 $$
-\lambda_k \;=\; V^{1/d} \cdot g_k
+\lambda_k = V^{1/d} \cdot g_k
 $$
 
 To ensure physical feasibility, side lengths are truncated to ensure $\lambda_k < W_k$.
@@ -127,7 +127,7 @@ $$
 In $d$-dimensional space, given side length vectors $\boldsymbol{\lambda}^{(r)}, \boldsymbol{\lambda}^{(s)}$, the intersection probability is the product of the probabilities in each dimension. Therefore, the overall intersection probability $p(C)$ is the expectation over the side length distributions:
 
 $$
-p(C) \;=\; \mathbb{E}_{\boldsymbol{\lambda}^{(r)}, \boldsymbol{\lambda}^{(s)}} \left[ \prod_{k=1}^d P_{\mathrm{1D}}(\lambda_k^{(r)}, \lambda_k^{(s)}; W_k) \right]
+p(C) = \mathbb{E}_{\boldsymbol{\lambda}^{(r)}, \boldsymbol{\lambda}^{(s)}} \left[ \prod_{k=1}^d P_{\mathrm{1D}}(\lambda_k^{(r)}, \lambda_k^{(s)}; W_k) \right]
 $$
 
 #### 2.4.2 Expected Density Equation
@@ -135,7 +135,7 @@ $$
 The expected output density $\alpha_{\mathrm{exp}}(C)$ is linearly related to $p(C)$:
 
 $$
-\alpha_{\mathrm{exp}}(C) \;=\; p(C) \cdot \frac{n_R n_S}{n_R + n_S}
+\alpha_{\mathrm{exp}}(C) = p(C) \cdot \frac{n_R n_S}{n_R + n_S}
 $$
 
 Since $p(C)$ is monotonically increasing with respect to $C$ but lacks a closed-form analytical expression (due to the integration over volume and shape distributions), the system employs a **numerical root-finding method**.
