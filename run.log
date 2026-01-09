@@ -1,0 +1,156 @@
+============================================================
+[INFO] alacarte_rectgen INDUSTRIAL stress test
+[INFO] START=2026-01-09T00:29:55+00:00
+[INFO] DIR=/home/dhy/PhD/Alacarte
+[INFO] LOG=/home/dhy/PhD/Alacarte/run.log
+[INFO] PYTHON=python3
+[INFO] USER=dhy  HOST=ta
+============================================================
+[ENV] uname: Linux ta 5.4.0-216-generic #236-Ubuntu SMP Fri Apr 11 19:53:21 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+[ENV] git: 98e7aae  dirty=4 files
+[ENV] ulimit -a:
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 4125916
+max locked memory       (kbytes, -l) 65536
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1048576
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 4125916
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+============================================================
+------------------------------------------------------------
+[ENV] python=3.12.7 numpy=1.26.4 platform=Linux-5.4.0-216-generic-x86_64-with-glibc2.31
+------------------------------------------------------------
+[TEST] invalid parameter handling (hard failures must raise)
+[TEST] interval_overlap_prob formula vs Monte Carlo (randomized 1D regression)
+    ok
+[TEST] reproducibility (same seed => bitwise identical; different seed => different)
+[TEST] alpha_out=0 behavior (no crash; strict invariants hold; near-zero expected alpha)
+[TEST] monotonicity sanity (alpha_expected must increase with coverage; fixed lengths => deterministic)
+    ok
+[TEST] core industrial suite (diverse + harsh)
+    [rare_p_unit_fixed] nR=2000 nS=2000 d=2 U=unit dist=fixed cv=0.25 shape_sigma=0.0
+        alpha_target=0.1 alpha_max=1000
+        solved coverage C=0.0496164  expected_alpha(recheck)=0.0997277  abs_err=0.000272 tol=0.002  p_est=9.97277e-05  time=1.70s
+        realized_check: pairs=10000000 exp_hits≈997.3  alpha_hat≈0.108  rel_err≈0.08  tol_rel≈0.19
+    [rare_p_shift_logn] nR=5000 nS=3000 d=2 U=shifted dist=lognormal cv=0.5 shape_sigma=0.6
+        alpha_target=0.1 alpha_max=1875
+        solved coverage C=0.0459389  expected_alpha(recheck)=0.0999139  abs_err=8.61e-05 tol=0.002  p_est=5.32874e-05  time=4.94s
+    [skew_sizes_exp] nR=800 nS=12000 d=2 U=unit dist=exponential cv=0.25 shape_sigma=0.6
+        alpha_target=15 alpha_max=750
+        solved coverage C=9.83221  expected_alpha(recheck)=14.953  abs_err=0.047 tol=0.3  p_est=0.0199373  time=1.17s
+    [d3_aniso_normal] nR=3000 nS=3000 d=3 U=anisotropic dist=normal cv=0.25 shape_sigma=0.6
+        alpha_target=20 alpha_max=1500
+        solved coverage C=12.4186  expected_alpha(recheck)=19.8988  abs_err=0.101 tol=0.4  p_est=0.0132659  time=1.24s
+    [d5_unit_fixed] nR=2500 nS=2500 d=5 U=unit dist=fixed cv=0.25 shape_sigma=0.0
+        alpha_target=5 alpha_max=1250
+        solved coverage C=0.217685  expected_alpha(recheck)=4.98909  abs_err=0.0109 tol=0.1  p_est=0.00399127  time=1.56s
+    [d8_unit_logn] nR=2000 nS=2000 d=8 U=unit dist=lognormal cv=0.25 shape_sigma=1.8
+        alpha_target=2 alpha_max=1000
+        solved coverage C=0.000662657  expected_alpha(recheck)=2.00441  abs_err=0.00441 tol=0.04  p_est=0.00200441  time=6.48s
+    [huge_coords_fixed] nR=4000 nS=4000 d=2 U=huge dist=fixed cv=0.25 shape_sigma=0.0
+        alpha_target=80 alpha_max=2000
+        solved coverage C=36.4357  expected_alpha(recheck)=79.9112  abs_err=0.0888 tol=1.6  p_est=0.0399556  time=0.65s
+        realized_check: pairs=500000 exp_hits≈19977.8  alpha_hat≈79.664  rel_err≈0.0042  tol_rel≈0.0424
+    [tiny_coords_normal] nR=4000 nS=4000 d=2 U=tiny dist=normal cv=0.5 shape_sigma=1.8
+        alpha_target=30 alpha_max=2000
+        solved coverage C=5.56704  expected_alpha(recheck)=29.9018  abs_err=0.0982 tol=0.6  p_est=0.0149509  time=2.10s
+    [near_sat_fixed] nR=1500 nS=1500 d=2 U=unit dist=fixed cv=0.25 shape_sigma=0.0
+        alpha_target=735 alpha_max=750
+        solved coverage C=339.586  expected_alpha(recheck)=737.272  abs_err=2.27 tol=14.7  p_est=0.98303  time=1.26s
+        realized_check: pairs=500000 exp_hits≈491515.0  alpha_hat≈737.456  rel_err≈0.00334  tol_rel≈0.02
+    [alpha_1000_fixed] nR=5000 nS=5000 d=2 U=default dist=fixed cv=0.25 shape_sigma=0.0
+        alpha_target=1000 alpha_max=2500
+        solved coverage C=397.728  expected_alpha(recheck)=996.497  abs_err=3.5 tol=20  p_est=0.398599  time=1.64s
+        realized_check: pairs=500000 exp_hits≈199299.5  alpha_hat≈989.93  rel_err≈0.0101  tol_rel≈0.02
+[TEST] deterministic fuzz suite (random but reproducible configs)
+    [fuzz_00] nR=1484 nS=645 d=5 U=tiny dist=normal cv=0.25 shape_sigma=0.6
+        alpha_target=37.6796 alpha_max=449.591
+        solved coverage C=1.87835  expected_alpha(recheck)=37.7256  abs_err=0.046 tol=0.754  p_est=0.0839108  time=3.96s
+    [fuzz_01] nR=4374 nS=5478 d=5 U=tiny dist=fixed cv=0.1 shape_sigma=0.0
+        alpha_target=0.652785 alpha_max=2432.07
+        solved coverage C=0.031906  expected_alpha(recheck)=0.650772  abs_err=0.00201 tol=0.0131  p_est=0.000267579  time=1.70s
+    [fuzz_02] nR=5559 nS=2053 d=3 U=huge dist=normal cv=0.25 shape_sigma=1.8
+        alpha_target=52.0002 alpha_max=1499.29
+        solved coverage C=3.47798  expected_alpha(recheck)=52.0384  abs_err=0.0382 tol=1.04  p_est=0.0347086  time=2.61s
+    [fuzz_03] nR=3030 nS=2363 d=2 U=shifted dist=lognormal cv=0.25 shape_sigma=0.0
+        alpha_target=0.226333 alpha_max=1327.63
+        solved coverage C=0.107078  expected_alpha(recheck)=0.226248  abs_err=8.54e-05 tol=0.00453  p_est=0.000170415  time=1.17s
+    [fuzz_04] nR=4147 nS=5066 d=2 U=shifted dist=fixed cv=0.1 shape_sigma=0.0
+        alpha_target=37.1529 alpha_max=2280.33
+        solved coverage C=151.866  expected_alpha(recheck)=37.3232  abs_err=0.17 tol=0.743  p_est=0.0163674  time=0.49s
+    [fuzz_05] nR=2296 nS=2894 d=3 U=huge dist=lognormal cv=0.5 shape_sigma=1.8
+        alpha_target=0.209416 alpha_max=1280.27
+        solved coverage C=0.00840754  expected_alpha(recheck)=0.209182  abs_err=0.000234 tol=0.00419  p_est=0.000163389  time=1.56s
+    [fuzz_06] nR=3836 nS=1636 d=3 U=shifted dist=exponential cv=0.25 shape_sigma=0.6
+        alpha_target=494.364 alpha_max=1146.87
+        solved coverage C=1.63055e+06  expected_alpha(recheck)=496.006  abs_err=1.64 tol=9.89  p_est=0.432485  time=3.30s
+    [fuzz_07] nR=522 nS=2256 d=5 U=huge dist=fixed cv=0.1 shape_sigma=0.0
+        alpha_target=32.0682 alpha_max=423.914
+        solved coverage C=1.42124  expected_alpha(recheck)=32.1364  abs_err=0.0681 tol=0.641  p_est=0.0758087  time=1.57s
+    [fuzz_08] nR=1753 nS=3470 d=2 U=tiny dist=exponential cv=0.1 shape_sigma=1.8
+        alpha_target=19.7017 alpha_max=1164.64
+        solved coverage C=4.46544  expected_alpha(recheck)=19.628  abs_err=0.0737 tol=0.394  p_est=0.0168533  time=1.48s
+    [fuzz_09] nR=2979 nS=3918 d=3 U=shifted dist=normal cv=0.25 shape_sigma=1.8
+        alpha_target=0.420193 alpha_max=1692.29
+        solved coverage C=0.0250781  expected_alpha(recheck)=0.419529  abs_err=0.000664 tol=0.0084  p_est=0.000247906  time=2.17s
+    [fuzz_10] nR=4216 nS=4889 d=1 U=tiny dist=normal cv=0.1 shape_sigma=1.8
+        alpha_target=1.17843 alpha_max=2263.81
+        solved coverage C=1.17525  expected_alpha(recheck)=1.17537  abs_err=0.00307 tol=0.0236  p_est=0.000519198  time=0.77s
+    [fuzz_11] nR=4639 nS=2295 d=3 U=tiny dist=fixed cv=0.5 shape_sigma=0.6
+        alpha_target=10.2511 alpha_max=1535.41
+        solved coverage C=1.94022  expected_alpha(recheck)=10.2254  abs_err=0.0258 tol=0.205  p_est=0.00665972  time=2.17s
+    [fuzz_12] nR=823 nS=1909 d=2 U=huge dist=exponential cv=0.25 shape_sigma=0.6
+        alpha_target=32.1096 alpha_max=575.076
+        solved coverage C=15.6219  expected_alpha(recheck)=32.171  abs_err=0.0615 tol=0.642  p_est=0.0559423  time=1.90s
+    [fuzz_13] nR=1546 nS=4758 d=2 U=unit dist=lognormal cv=0.25 shape_sigma=0.0
+        alpha_target=721.877 alpha_max=1166.86
+        solved coverage C=314.356  expected_alpha(recheck)=719.687  abs_err=2.19 tol=14.4  p_est=0.616774  time=1.07s
+    [fuzz_14] nR=5708 nS=1986 d=1 U=unit dist=fixed cv=0.1 shape_sigma=1.8
+        alpha_target=0.281613 alpha_max=1473.37
+        solved coverage C=0.280852  expected_alpha(recheck)=0.280862  abs_err=0.000751 tol=0.00563  p_est=0.000190626  time=0.51s
+    [fuzz_15] nR=973 nS=1010 d=2 U=huge dist=lognormal cv=0.25 shape_sigma=0.6
+        alpha_target=0.604316 alpha_max=495.577
+        solved coverage C=0.274038  expected_alpha(recheck)=0.607273  abs_err=0.00296 tol=0.0121  p_est=0.00122538  time=1.90s
+    [fuzz_16] nR=3602 nS=3648 d=2 U=anisotropic dist=lognormal cv=0.1 shape_sigma=1.8
+        alpha_target=231.78 alpha_max=1812.43
+        solved coverage C=71.7372  expected_alpha(recheck)=231.031  abs_err=0.749 tol=4.64  p_est=0.127471  time=2.16s
+    [fuzz_17] nR=3706 nS=4014 d=5 U=anisotropic dist=lognormal cv=0.5 shape_sigma=1.8
+        alpha_target=55.06 alpha_max=1926.93
+        solved coverage C=14.4162  expected_alpha(recheck)=55.0165  abs_err=0.0435 tol=1.1  p_est=0.0285514  time=4.43s
+    [fuzz_18] nR=3796 nS=4535 d=5 U=unit dist=lognormal cv=0.1 shape_sigma=0.6
+        alpha_target=0.615508 alpha_max=2066.36
+        solved coverage C=0.0218086  expected_alpha(recheck)=0.617444  abs_err=0.00194 tol=0.0123  p_est=0.000298807  time=4.52s
+    [fuzz_19] nR=2341 nS=872 d=5 U=anisotropic dist=exponential cv=0.25 shape_sigma=1.8
+        alpha_target=85.8508 alpha_max=635.341
+        solved coverage C=890.678  expected_alpha(recheck)=85.5372  abs_err=0.314 tol=1.72  p_est=0.134632  time=2.99s
+[TEST] large-scale generation (stress memory/time) + expected-alpha gate
+    [large_N2000000_alpha0.1] nR=1000000 nS=1000000 d=2 U=default dist=fixed cv=0.25 shape_sigma=0.0
+        alpha_target=0.1 alpha_max=500000
+        solved coverage C=0.05  expected_alpha(recheck)=0.100022  abs_err=2.24e-05 tol=0.002  p_est=2.00045e-07  time=0.24s
+    [large_N2000000_alpha10] nR=1000000 nS=1000000 d=2 U=default dist=fixed cv=0.25 shape_sigma=0.0
+        alpha_target=10 alpha_max=500000
+        solved coverage C=5  expected_alpha(recheck)=10.0224  abs_err=0.0224 tol=0.2  p_est=2.00447e-05  time=0.24s
+    [large_N2000000_alpha1000] nR=1000000 nS=1000000 d=2 U=default dist=fixed cv=0.25 shape_sigma=0.0
+        alpha_target=1000 alpha_max=500000
+        solved coverage C=490.149  expected_alpha(recheck)=1002.11  abs_err=2.11 tol=20  p_est=0.00200422  time=1.62s
+        realized_check: pairs=997895 exp_hits≈2000.0  alpha_hat≈999.103  rel_err≈0.000897  tol_rel≈0.134
+    [large_N2000000_alpha250000] nR=1000000 nS=1000000 d=2 U=default dist=fixed cv=0.25 shape_sigma=0.0
+        alpha_target=250000 alpha_max=500000
+        solved coverage C=98599.4  expected_alpha(recheck)=249184  abs_err=816 tol=5e+03  p_est=0.498367  time=1.75s
+        realized_check: pairs=500000 exp_hits≈249183.5  alpha_hat≈249278  rel_err≈0.00289  tol_rel≈0.02
+------------------------------------------------------------
+[PASS] ALL INDUSTRIAL TESTS PASSED ✅  (total_time=83.67s)
+------------------------------------------------------------
+============================================================
+[PASS] bash script completed successfully ✅
+[INFO] END=2026-01-09T00:31:19+00:00
+============================================================
