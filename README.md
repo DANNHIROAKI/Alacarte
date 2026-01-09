@@ -7,7 +7,7 @@
 In the performance evaluation of multidimensional spatial database systems, the spatial join is one of the most computationally challenging operators. Let $R$ and $S$ be two sets containing $d$-dimensional axis-aligned hyper-rectangles (hereinafter referred to as "boxes"). Each object $b$ is defined as the Cartesian product of $d$ half-open intervals:
 
 $$
-b = \prod_{k=1}^{d}\,[\,\ell_k,\ u_k\,) \quad \subseteq \mathbb{R}^d
+b = \prod_{k=1}^{d}[\ell_k,\ u_k) \quad \subseteq \mathbb{R}^d
 $$
 
 The result set $J$ of a spatial join under the "intersects" predicate is defined as:
@@ -45,7 +45,7 @@ This process must simultaneously output complete metadata, including random seed
 Define the spatial universe $\mathcal{U}$ as a $d$-dimensional hyper-rectangle:
 
 $$
-\mathcal{U} = \prod_{k=1}^{d}\,[\,u_k^{\min},\ u_k^{\max}\,)
+\mathcal{U} = \prod_{k=1}^{d}[u_k^{\min},\ u_k^{\max})
 $$
 
 Let $W_k = u_k^{\max} - u_k^{\min}$ be the span of the $k$-th dimension. The total volume of the universe is $V_{\mathcal{U}} = \prod_{k=1}^d W_k$.
