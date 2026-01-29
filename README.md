@@ -218,6 +218,10 @@ The third element returned by the function, the `info` dictionary, contains crit
 
 ### 3.4 Usage Example
 
+```bash
+pip install alacarte-rectgen
+```
+
 The following code demonstrates how to generate two sets of 2D rectangle data with 500,000 objects each, a target output density of 10, and how to verify the generated metadata.
 
 ```python
@@ -254,4 +258,5 @@ print(f"Expected Alpha:      {info['alpha_expected_est']:.4f}")
 print(f"Intersection Prob:   {info['pair_intersection_prob_est']:.6e}")
 
 ```
+
 
