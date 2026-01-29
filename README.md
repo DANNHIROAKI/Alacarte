@@ -31,7 +31,7 @@ To ensure the credibility and fairness of benchmark results, the synthetic data 
 
 ### 1.2 Output Density Metric $\alpha_{\mathrm{out}}$
 
-The cardinality $|J|$ of the join result is typically non-linear and highly dependent on input scale and data distribution. To establish a unified load metric across experiments of different scales, the normalized output density $\alpha_{\mathrm{out}}$ is defined as follows:
+The cardinality ${\mid}J{\mid}$ of the join result is typically non-linear and highly dependent on input scale and data distribution. To establish a unified load metric across experiments of different scales, the normalized output density $\alpha_{\mathrm{out}}$ is defined as follows:
 
 $$
 \alpha_{\mathrm{out}} = \frac{|J(R, S)|}{|R| + |S|}
@@ -157,7 +157,7 @@ The system executes the following steps to solve the equation $\alpha_{\mathrm{e
 
 1. **Monte Carlo Estimation**: Quickly and unbiasedly estimate $p(C)$ by sampling a batch of side length vectors and using the analytical $P_{\mathrm{1D}}$ formula.
 2. **Interval Bracketing**: Search for the lower and upper bounds $[C_{\mathrm{lo}}, C_{\mathrm{hi}}]$ for $C$.
-3. **Log-space Binary Search**: Perform an iterative search in the $\log C$ space until the relative error $|\alpha_{\mathrm{exp}}(C) - \alpha_{\mathrm{out}}^{\star}| / \alpha_{\mathrm{out}}^{\star}$ is less than a preset threshold (e.g., $2\%$).
+3. **Log-space Binary Search**: Perform an iterative search in the $\log C$ space until the relative error ${\mid}\alpha_{\mathrm{exp}}(C) - \alpha_{\mathrm{out}}^{\star}{\mid} / \alpha_{\mathrm{out}}^{\star}$ is less than a preset threshold (e.g., $2\%$).
 
 ## 3. Interface Specification and Usage
 
